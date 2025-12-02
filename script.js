@@ -113,15 +113,6 @@ const CONFIG = {
       image: "imgs/Montreal creative portfolio.jfif",
     },
     {
-      name: "Elite Properties",
-      description: "موقع عقاري احترافي وواجهة مستخدم مذهلة",
-      image: "imgs/Elite Properties.jfif",
-      category: "web",
-      tech: ["HTML", "CSS", "JavaScript"],
-      demo: "https://hossam-mahmoud293.github.io/Elite-Properties/",
-      github: "https://github.com/Hossam-Mahmoud293/Elite-Properties",
-    },
-    {
       name: "Animated Portfolio Website",
       description: `موقع شخصي احترافي متحرك لمطور الويب "حسام محمود" - يعرض المهارات والخبرات والأعمال بطريقة عصرية وجذابة.`,
       image: "imgs/Animated Portfolio Website.jfif",
