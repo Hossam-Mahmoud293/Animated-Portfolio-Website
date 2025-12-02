@@ -520,8 +520,23 @@ class PortfolioApp {
     this.state.isLoading = true;
 
     try {
-      // Use real projects from CONFIG
-      this.state.projects = CONFIG.realProjects;
+      // First, load static projects from CONFIG
+      let projects = [...CONFIG.realProjects];
+
+      // Then, fetch additional projects from GitHub API
+      try {
+        const githubProjects = await this.fetchGitHubProjects();
+        // Merge new projects (avoid duplicates by name)
+        githubProjects.forEach((githubProject) => {
+          if (!projects.find((p) => p.name === githubProject.name)) {
+            projects.push(githubProject);
+          }
+        });
+      } catch (apiError) {
+        console.log("GitHub API failed, using static projects only");
+      }
+
+      this.state.projects = projects;
       this.renderProjects();
     } catch (error) {
       console.error("Failed to load projects:", error);
@@ -529,6 +544,50 @@ class PortfolioApp {
     } finally {
       this.state.isLoading = false;
     }
+  }
+
+  async fetchGitHubProjects() {
+    const response = await fetch(
+      `https://api.github.com/users/${CONFIG.github.username}/repos?sort=updated&per_page=10`
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch GitHub repositories");
+    }
+
+    const repos = await response.json();
+
+    // Convert GitHub repos to project format
+    return repos
+      .filter((repo) => !repo.fork && repo.name !== CONFIG.github.username) // Exclude forks and profile
+      .map((repo) => ({
+        name: repo.name
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (l) => l.toUpperCase()),
+        description: repo.description || "مشروع برمجي رائع",
+        category: this.getCategoryFromRepo(repo),
+        tech: this.getTechFromRepo(repo),
+        github: repo.html_url,
+        demo:
+          repo.homepage ||
+          `https://${CONFIG.github.username}.github.io/${repo.name}/`,
+        image: `imgs/${repo.name}.jpg`, // Fallback image
+      }));
+  }
+
+  getCategoryFromRepo(repo) {
+    const name = repo.name.toLowerCase();
+    if (name.includes("game") || name.includes("app")) return "app";
+    if (name.includes("portfolio") || name.includes("design")) return "design";
+    return "web";
+  }
+
+  getTechFromRepo(repo) {
+    const tech = ["HTML", "CSS", "JavaScript"];
+    if (repo.language && !tech.includes(repo.language)) {
+      tech.unshift(repo.language);
+    }
+    return tech;
   }
 
   renderProjects() {
