@@ -39,6 +39,15 @@ const CONFIG = {
   // Real Projects from GitHub
   realProjects: [
     {
+      name: "Animated Portfolio Website",
+      description: `موقع شخصي احترافي متحرك لمطور الويب "حسام محمود" - يعرض المهارات والخبرات والأعمال بطريقة عصرية وجذابة.`,
+      image: "imgs/Animated Portfolio Website.jfif",
+      category: "web",
+      tech: ["HTML", "CSS", "JavaScript"],
+      demo: "https://hossam-mahmoud293.github.io/Animated-Portfolio-Website/",
+      github: "https://github.com/Hossam-Mahmoud293/Animated-Portfolio-Website",
+    },
+    {
       name: "Elite Properties",
       description: "موقع عقاري حديث مع دعم كامل للغة العربية وتصميم متجاوب",
       category: "web",
@@ -111,15 +120,6 @@ const CONFIG = {
         "https://github.com/Hossam-Mahmoud293/Montreal-Creative-Portfolio",
       demo: "https://hossam-mahmoud293.github.io/Montreal-Creative-Portfolio/",
       image: "imgs/Montreal creative portfolio.jfif",
-    },
-    {
-      name: "Animated Portfolio Website",
-      description: `موقع شخصي احترافي متحرك لمطور الويب "حسام محمود" - يعرض المهارات والخبرات والأعمال بطريقة عصرية وجذابة.`,
-      image: "imgs/Animated Portfolio Website.jfif",
-      category: "web",
-      tech: ["HTML", "CSS", "JavaScript"],
-      demo: "#",
-      github: "#",
     },
   ],
 
