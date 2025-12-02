@@ -122,9 +122,9 @@ const CONFIG = {
       github: "https://github.com/Hossam-Mahmoud293/Elite-Properties",
     },
     {
-      name: "مطعم إيطالي",
-      description: "موقع مطعم إيطالي أنيق وتصميم جذاب",
-      image: "imgs/مطعم إيطالي - استثماريات نفسيه.jpeg",
+      name: "Animated Portfolio Website",
+      description: `موقع شخصي احترافي متحرك لمطور الويب "حسام محمود" - يعرض المهارات والخبرات والأعمال بطريقة عصرية وجذابة.`,
+      image: "imgs/Animated Portfolio Website.jfif",
       category: "web",
       tech: ["HTML", "CSS", "JavaScript"],
       demo: "#",
