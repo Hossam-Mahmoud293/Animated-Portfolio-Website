@@ -516,29 +516,12 @@ class PortfolioApp {
   }
 
   // ===== PORTFOLIO MANAGEMENT =====
-  async loadProjects() {
+  loadProjects() {
     this.state.isLoading = true;
 
     try {
-      // Load only projects from CONFIG (current list)
-      let projects = [...CONFIG.realProjects];
-
-      // Fetch new projects from GitHub API and add only NEW ones
-      try {
-        const githubProjects = await this.fetchGitHubProjects();
-        const currentProjectNames = projects.map((p) => p.name.toLowerCase());
-
-        // Add only projects that don't exist in current list
-        githubProjects.forEach((githubProject) => {
-          if (!currentProjectNames.includes(githubProject.name.toLowerCase())) {
-            projects.push(githubProject);
-          }
-        });
-      } catch (apiError) {
-        console.log("GitHub API failed, using current projects only");
-      }
-
-      this.state.projects = projects;
+      // Load only projects from CONFIG (current list only)
+      this.state.projects = [...CONFIG.realProjects];
       this.renderProjects();
     } catch (error) {
       console.error("Failed to load projects:", error);
@@ -546,50 +529,6 @@ class PortfolioApp {
     } finally {
       this.state.isLoading = false;
     }
-  }
-
-  async fetchGitHubProjects() {
-    const response = await fetch(
-      `https://api.github.com/users/${CONFIG.github.username}/repos?sort=updated&per_page=10`
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch GitHub repositories");
-    }
-
-    const repos = await response.json();
-
-    // Convert GitHub repos to project format
-    return repos
-      .filter((repo) => !repo.fork && repo.name !== CONFIG.github.username) // Exclude forks and profile
-      .map((repo) => ({
-        name: repo.name
-          .replace(/-/g, " ")
-          .replace(/\b\w/g, (l) => l.toUpperCase()),
-        description: repo.description || "مشروع برمجي رائع",
-        category: this.getCategoryFromRepo(repo),
-        tech: this.getTechFromRepo(repo),
-        github: repo.html_url,
-        demo:
-          repo.homepage ||
-          `https://${CONFIG.github.username}.github.io/${repo.name}/`,
-        image: `imgs/${repo.name}.jpg`, // Fallback image
-      }));
-  }
-
-  getCategoryFromRepo(repo) {
-    const name = repo.name.toLowerCase();
-    if (name.includes("game") || name.includes("app")) return "app";
-    if (name.includes("portfolio") || name.includes("design")) return "design";
-    return "web";
-  }
-
-  getTechFromRepo(repo) {
-    const tech = ["HTML", "CSS", "JavaScript"];
-    if (repo.language && !tech.includes(repo.language)) {
-      tech.unshift(repo.language);
-    }
-    return tech;
   }
 
   renderProjects() {
