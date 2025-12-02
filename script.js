@@ -520,20 +520,22 @@ class PortfolioApp {
     this.state.isLoading = true;
 
     try {
-      // First, load static projects from CONFIG
+      // Load only projects from CONFIG (current list)
       let projects = [...CONFIG.realProjects];
 
-      // Then, fetch additional projects from GitHub API
+      // Fetch new projects from GitHub API and add only NEW ones
       try {
         const githubProjects = await this.fetchGitHubProjects();
-        // Merge new projects (avoid duplicates by name)
+        const currentProjectNames = projects.map((p) => p.name.toLowerCase());
+
+        // Add only projects that don't exist in current list
         githubProjects.forEach((githubProject) => {
-          if (!projects.find((p) => p.name === githubProject.name)) {
+          if (!currentProjectNames.includes(githubProject.name.toLowerCase())) {
             projects.push(githubProject);
           }
         });
       } catch (apiError) {
-        console.log("GitHub API failed, using static projects only");
+        console.log("GitHub API failed, using current projects only");
       }
 
       this.state.projects = projects;
