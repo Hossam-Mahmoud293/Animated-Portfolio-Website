@@ -2297,12 +2297,17 @@ body::after {
     justify-content: center;
   }
 
-  .about-image {
-    display: none;
-  }
-
   .about-content {
     grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .about-image {
+    max-width: 200px;
+    margin: 0 auto var(--space-6);
+  }
+
+  .about-text {
     text-align: center;
   }
 }
