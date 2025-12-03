@@ -2296,6 +2296,15 @@ body::after {
   .social-links {
     justify-content: center;
   }
+
+  .about-image {
+    display: none;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
 }
 
 /* Print Styles */
