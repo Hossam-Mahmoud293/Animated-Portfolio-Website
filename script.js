@@ -67,12 +67,13 @@ const CONFIG = {
       image: "imgs/طمأنينة - استشارات نفسية.jpeg",
     },
     {
-      name: "Modern Portfolio",
-      description: "معرض أعمال احترافي مع GSAP و GitHub API",
+      name: "Hossam Portfolio",
+      description:
+        "معرض أعمال احترافي مع GSAP و GitHub API - رحلة مطور Frontend",
       category: "web",
-      tech: ["HTML", "CSS", "JavaScript"],
-      github: "https://github.com/Hossam-Mahmoud293/Modern-Portfolio",
-      demo: "#",
+      tech: ["HTML", "CSS", "JavaScript", "GSAP"],
+      github: "https://github.com/Hossam-Mahmoud293/Hossam-Portfolio",
+      demo: "https://hossam-mahmoud293.github.io/Hossam-Portfolio/",
       image: "imgs/Modern Portfolio.jpeg",
     },
     {
